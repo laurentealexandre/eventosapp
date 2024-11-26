@@ -3,6 +3,8 @@ package com.eventos.eventosapp.models;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -33,10 +35,27 @@ public class Event {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Subscription> subscriptions = new ArrayList<>();
+
+    @Transient
+    private Integer subscribedCount = 0;
+
+    public Integer getSubscribedCount() {
+        return subscribedCount != null ? subscribedCount : 0;
+    }
+
+    public void setSubscribedCount(Integer count) {
+        this.subscribedCount = count != null ? count : 0;
+    }
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
+        if (subscriptions == null) {
+            subscriptions = new ArrayList<>();
+        }
     }
 
     @PreUpdate
