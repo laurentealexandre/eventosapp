@@ -11,8 +11,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
             .allowedOrigins(
-                "http://localhost:5173", // Development (Vite default port)
-                "http://localhost:3000"  // Alternative development port
+                "http://localhost:5173", 
+                "http://localhost:3000"  
             )
             .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
             .allowedHeaders("*");
