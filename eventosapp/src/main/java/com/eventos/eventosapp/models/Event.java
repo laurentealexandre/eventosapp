@@ -2,6 +2,8 @@ package com.eventos.eventosapp.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonManagedReference;  // Importar para Jackson
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "events")
 public class Event {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,7 +37,9 @@ public class Event {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    // Adicionando @JsonManagedReference aqui para evitar o ciclo de referência
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Subscription> subscriptions = new ArrayList<>();
 
     @Transient
