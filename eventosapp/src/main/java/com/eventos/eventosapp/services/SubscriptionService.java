@@ -17,24 +17,24 @@ public class SubscriptionService {
     @Autowired
     private EventRepository eventRepository;
 
-    // Método para inscrever um usuário em um evento
+    
     @Transactional
     public void subscribe(Long eventId, String userEmail) {
-        // Busca o evento
+        
         Event event = eventRepository.findById(eventId)
             .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
 
-        // Verifica se já está inscrito
+        
         if (subscriptionRepository.existsByEventIdAndUserEmail(eventId, userEmail)) {
             throw new RuntimeException("Usuário já está inscrito neste evento");
         }
 
-        // Verifica se há vagas
+        
         if (subscriptionRepository.countByEventId(eventId) >= event.getCapacity()) {
             throw new RuntimeException("Evento já atingiu a capacidade máxima");
         }
 
-        // Cria e salva a inscrição
+        
         Subscription subscription = new Subscription();
         subscription.setEvent(event);
         subscription.setUserEmail(userEmail);
@@ -42,7 +42,7 @@ public class SubscriptionService {
         subscriptionRepository.save(subscription);
     }
 
-    // Método para cancelar inscrição
+    
     @Transactional
     public void unsubscribe(Long eventId, String userEmail) {
         Subscription subscription = subscriptionRepository.findByEventIdAndUserEmail(eventId, userEmail)
@@ -51,12 +51,12 @@ public class SubscriptionService {
         subscriptionRepository.delete(subscription);
     }
 
-    // Verifica se um usuário está inscrito
+    
     public boolean isSubscribed(Long eventId, String userEmail) {
         return subscriptionRepository.existsByEventIdAndUserEmail(eventId, userEmail);
     }
 
-    // Retorna o número de inscritos em um evento
+    
     public int getSubscriptionCount(Long eventId) {
         return subscriptionRepository.countByEventId(eventId);
     }

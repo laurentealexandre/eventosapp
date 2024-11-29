@@ -14,7 +14,7 @@ public class SubscriptionController {
    @Autowired
    private SubscriptionService subscriptionService;
 
-   // Endpoint para fazer inscrição
+   
    @PostMapping
    public ResponseEntity<?> subscribe(
            @PathVariable Long eventId, 
@@ -23,7 +23,7 @@ public class SubscriptionController {
        return ResponseEntity.ok().build();
    }
 
-   // Endpoint para cancelar inscrição
+   
    @DeleteMapping
    public ResponseEntity<?> unsubscribe(
            @PathVariable Long eventId, 
@@ -32,7 +32,7 @@ public class SubscriptionController {
        return ResponseEntity.ok().build();
    }
 
-   // Endpoint para verificar se está inscrito
+   
    @GetMapping("/check")
    public ResponseEntity<Map<String, Boolean>> checkSubscription(
            @PathVariable Long eventId, 
@@ -42,7 +42,7 @@ public class SubscriptionController {
        return ResponseEntity.ok(Map.of("isSubscribed", isSubscribed));
    }
 
-   // Endpoint para contar inscrições
+   
    @GetMapping("/count")
    public ResponseEntity<Map<String, Integer>> getSubscriptionCount(
            @PathVariable Long eventId) {

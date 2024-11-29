@@ -25,10 +25,10 @@ public class EventService {
 
     public Event findEventById(Long id) {
         try {
-            System.out.println("Buscando evento com ID: " + id); // Log para debug
+            System.out.println("Buscando evento com ID: " + id); 
             Event event = eventRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Evento não encontrado: ID " + id));
-            System.out.println("Evento encontrado: " + event); // Log para debug
+            System.out.println("Evento encontrado: " + event); 
             return event;
         } catch (Exception e) {
             System.err.println("Erro ao buscar evento por ID " + id + ": " + e.getMessage());

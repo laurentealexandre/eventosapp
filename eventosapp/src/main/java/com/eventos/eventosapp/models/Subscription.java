@@ -2,7 +2,7 @@ package com.eventos.eventosapp.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import com.fasterxml.jackson.annotation.JsonBackReference;  // Importar para Jackson
+import com.fasterxml.jackson.annotation.JsonBackReference;  
 
 import java.time.LocalDateTime;
 
@@ -16,7 +16,7 @@ public class Subscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Adicionando @JsonBackReference aqui para evitar o ciclo de referência
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id", nullable = false)
     @JsonBackReference

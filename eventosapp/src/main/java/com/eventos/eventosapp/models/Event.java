@@ -2,7 +2,7 @@ package com.eventos.eventosapp.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import com.fasterxml.jackson.annotation.JsonManagedReference;  // Importar para Jackson
+import com.fasterxml.jackson.annotation.JsonManagedReference;  
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class Event {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    // Adicionando @JsonManagedReference aqui para evitar o ciclo de referência
+    
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Subscription> subscriptions = new ArrayList<>();
